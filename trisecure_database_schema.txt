@@ -1,0 +1,62 @@
+Table roles {
+  id integer
+  name string
+}
+Table users {
+  id integer
+  role_id integer
+  name string
+  email string
+  password string
+  created_at timestamp
+  updated_at timestamp
+}
+Table personal_informations {
+  id integer
+  user_id integer
+  profile_picture image
+  gender string
+  phone string
+  address string
+  date_of_birth date
+}
+Table driver_informations {
+  id integer
+  user_id integer
+  status_id integer
+  licenses image
+  qr_code string
+}
+Table statuses {
+  id integer
+  name string
+}
+Table emergencies {
+  id integer
+  user_id integer
+  name string
+  contact_number string
+  created_at timestamp
+  updated_at timestamp
+}
+Table ride_histories {
+  id integer
+  passenger_id integer
+  driver_id integer
+  created_at timestamp
+  updated_at timestamp
+}
+
+Ref: "users"."id" < "personal_informations"."user_id"
+
+Ref: "users"."id" < "driver_informations"."user_id"
+
+Ref: "users"."id" < "emergencies"."user_id"
+
+Ref: "users"."id" < "ride_histories"."passenger_id"
+
+Ref: "users"."id" < "ride_histories"."driver_id"
+
+Ref: "statuses"."id" < "driver_informations"."status_id"
+
+Ref: "roles"."id" < "users"."role_id"
