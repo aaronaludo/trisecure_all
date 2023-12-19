@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('driver_informations', function (Blueprint $table) {
+        Schema::create('driver_information', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id');
+            $table->integer('driver_id');
             $table->integer('status_id');
             $table->string('license');
             $table->string('qr_code');
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('driver_informations');
+        Schema::dropIfExists('driver_information');
     }
 };

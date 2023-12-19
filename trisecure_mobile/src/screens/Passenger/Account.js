@@ -35,11 +35,14 @@ export default function Account({ navigation }) {
   };
 
   const handleLogout = async () => {
+    // await AsyncStorage.removeItem("passengerToken");
+    // await AsyncStorage.removeItem("passengerData");
+    // navigation.navigate("Passenger Login");
     try {
       const token = await AsyncStorage.getItem("passengerToken");
       if (token) {
         const response = await axios.get(
-          "http://192.168.1.7:8000/api/passengers/logout",
+          "http://192.168.1.2:8000/api/passengers/logout",
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -64,10 +67,10 @@ export default function Account({ navigation }) {
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
-        <Image
+        {/* <Image
           source={require("../../../assets/images/profile.jpg")}
           style={styles.image}
-        />
+        /> */}
         <Text
           style={styles.title}
         >{`${userData.first_name} ${userData.last_name}`}</Text>
@@ -103,6 +106,48 @@ export default function Account({ navigation }) {
                 style={{ marginRight: 30, color: "#0d6efd" }}
               />
               <Text style={styles.buttonText}>Change Password</Text>
+            </View>
+            <Feather name="arrow-right-circle" size={24} color="black" />
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.buttonContainer}
+          onPress={() =>
+            navigation.navigate("Passenger Emergency", {
+              result: "",
+            })
+          }
+        >
+          <View style={styles.titleContainer}>
+            <View style={{ flexDirection: "row" }}>
+              <Feather
+                name="compass"
+                size={24}
+                color="black"
+                style={{ marginRight: 30, color: "#0d6efd" }}
+              />
+              <Text style={styles.buttonText}>Emergency</Text>
+            </View>
+            <Feather name="arrow-right-circle" size={24} color="black" />
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.buttonContainer}
+          onPress={() =>
+            navigation.navigate("Passenger Connect", {
+              result: "",
+            })
+          }
+        >
+          <View style={styles.titleContainer}>
+            <View style={{ flexDirection: "row" }}>
+              <Feather
+                name="users"
+                size={24}
+                color="black"
+                style={{ marginRight: 30, color: "#0d6efd" }}
+              />
+              <Text style={styles.buttonText}>Connects</Text>
             </View>
             <Feather name="arrow-right-circle" size={24} color="black" />
           </View>

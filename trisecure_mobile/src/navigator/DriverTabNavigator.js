@@ -2,6 +2,7 @@ import React from "react";
 import { Text, TouchableOpacity } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Dashboard from "../screens/Driver/Dashboard";
+import QrCode from "../screens/Driver/QrCode";
 import Notification from "../screens/Driver/Notification";
 import { Feather } from "@expo/vector-icons";
 
@@ -29,6 +30,19 @@ export default function App({ navigation }) {
           tabBarIcon: ({ color, size, focused }) => (
             <Feather
               name="home"
+              size={24}
+              color={focused ? "#0d6efd" : "grey"}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Qr Code"
+        component={QrCode}
+        options={{
+          tabBarIcon: ({ color, size, focused }) => (
+            <Feather
+              name="align-justify"
               size={24}
               color={focused ? "#0d6efd" : "grey"}
             />

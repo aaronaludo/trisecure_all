@@ -24,7 +24,7 @@ const Login = ({ navigation }) => {
     setError("");
     try {
       const response = await axios.post(
-        "http://192.168.1.7:8000/api/drivers/login",
+        "http://192.168.1.2:8000/api/drivers/login",
         {
           email,
           password,
@@ -33,10 +33,14 @@ const Login = ({ navigation }) => {
       if (response.data.message === "Your account is pending") {
         navigation.navigate("Driver Account Pending");
       } else {
-        const { token, user } = response.data.response;
+        const { token, user, driver_information } = response.data.response;
 
         await AsyncStorage.setItem("driverToken", token);
         await AsyncStorage.setItem("driverData", JSON.stringify(user));
+        await AsyncStorage.setItem(
+          "driverInformation",
+          JSON.stringify(driver_information)
+        );
 
         setEmail("");
         setPassword("");

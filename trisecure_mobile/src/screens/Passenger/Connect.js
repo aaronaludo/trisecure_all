@@ -3,37 +3,28 @@ import Box from "../../components/Box";
 import { styles } from "../../styles/Box";
 import {
   ScrollView,
-  StyleSheet,
   View,
   Text,
   TouchableOpacity,
+  TextInput,
+  StyleSheet,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 
-const Dashboard = ({ navigation }) => {
-  const [userData, setUserData] = useState({
-    id: null,
-    first_name: "",
-    last_name: "",
-    email: "",
-    phone_number: "",
-    address: "",
-    role_id: null,
-    status_id: null,
-    created_at: null,
-    updated_at: null,
-  });
-  const [histories, setHistories] = useState([]);
-  const [refresh, setRefresh] = useState(0);
+const Connect = ({ navigation, route }) => {
+  const { result } = route.params;
+  const [connects, setConnects] = useState([]);
+  const [render, setRender] = useState(null);
 
+  console.log(connects);
   useEffect(() => {
     const fetchData = async () => {
       try {
         const token = await AsyncStorage.getItem("passengerToken");
 
         const response = await axios.get(
-          "http://192.168.1.2:8000/api/passengers/ride-histories",
+          "http://192.168.1.2:8000/api/passengers/connects",
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -41,32 +32,33 @@ const Dashboard = ({ navigation }) => {
           }
         );
 
-        // console.log(response.data.histories);
-        setHistories(response.data.histories);
+        // console.log(response.data.emergencies);
+        setConnects(response.data.connects);
       } catch (error) {
         console.log(error);
       }
     };
 
     fetchData();
-    getUserData();
-  }, [refresh]);
+  }, [result, render]);
 
-  const getUserData = async () => {
+  const handleDelete = async (id) => {
     try {
-      const storedUserData = await AsyncStorage.getItem("passengerData");
-      if (storedUserData) {
-        const parsedUserData = JSON.parse(storedUserData);
-        setUserData(parsedUserData);
-      }
-    } catch (error) {
-      console.error("Error retrieving user data:", error);
-    }
-  };
+      const token = await AsyncStorage.getItem("passengerToken");
 
-  const handleRefresh = () => {
-    const randomNumber = Math.floor(Math.random() * 100000) + 1;
-    setRefresh(randomNumber);
+      const response = await axios.delete(
+        `http://192.168.1.2:8000/api/passengers/connects/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      setRender(response);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -75,49 +67,39 @@ const Dashboard = ({ navigation }) => {
         container={styles.container}
         title={styles.title}
         description={styles.description}
-        titleLabel={`Welcome, Passenger`}
-        descriptionLabel={`${userData.email}`}
+        titleLabel="Add Connections"
+        descriptionLabel="add more riders for the better."
+        navigation={navigation}
+        buttonContainer={styles.buttonContainer}
+        buttonText={styles.buttonText}
+        buttonTextLabel={"Add"}
+        buttonNavigation={"Passenger Add Connect"}
       />
-
-      <View style={styles.container}>
-        <Text style={styles.title}>Ride Histories</Text>
-        <Text style={styles.description}>
-          Lorem Ipsum has been the industry's standard dummy text ever since the
-          1500s.
-        </Text>
-        <TouchableOpacity
-          style={styles.buttonContainer}
-          onPress={handleRefresh}
-        >
-          <Text style={styles.buttonText}>Refresh</Text>
-        </TouchableOpacity>
-      </View>
       <View style={styles2.table}>
         <View style={styles2.headerRow}>
           <Text style={styles2.headerCell}>ID</Text>
-          <Text style={styles2.headerCell}>Driver Name</Text>
-          <Text style={styles2.headerCell}>Ride Date</Text>
+          <Text style={styles2.headerCell}>Sender</Text>
+          <Text style={styles2.headerCell}>Receiver</Text>
           <Text style={styles2.headerCell}>Actions</Text>
         </View>
-        {histories.map((item) => (
+        {connects.map((item) => (
           <View style={styles2.row} key={item.id}>
             <Text style={styles2.cell}>{item.id}</Text>
             <Text style={styles2.cell}>
-              {item.driver.first_name} {item.driver.last_name}
+              {item.sender.first_name} {item.sender.last_name}
             </Text>
             <Text style={styles2.cell}>
-              {new Date(item.created_at).toLocaleDateString("en-US")}
+              {item.receiver.first_name} {item.receiver.last_name}
             </Text>
             <View style={styles2.cell}>
+              <TouchableOpacity style={styles2.button}>
+                <Text style={styles2.buttonText}>View</Text>
+              </TouchableOpacity>
               <TouchableOpacity
                 style={styles2.button}
-                onPress={() =>
-                  navigation.navigate("Passenger View Ride History", {
-                    history_id: item.id,
-                  })
-                }
+                onPress={() => handleDelete(item.id)}
               >
-                <Text style={styles2.buttonText}>View</Text>
+                <Text style={styles2.buttonText}>Delete</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -191,4 +173,4 @@ const styles2 = StyleSheet.create({
   },
 });
 
-export default Dashboard;
+export default Connect;

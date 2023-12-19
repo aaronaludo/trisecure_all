@@ -38,6 +38,8 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard.index');
 
     Route::get('/admin/users', [AdminUserController::class, 'index'])->name('admin.users.index');
+    Route::get('/admin/users/search', [AdminUserController::class, 'search'])->name('admin.users.search');
+    Route::post('/admin/users/verify/{id}', [AdminUserController::class, 'verify'])->name('admin.users.verify');
     Route::get('/admin/users/{id}', [AdminUserController::class, 'view'])->name('admin.users.view');
 
     Route::get('/admin/admins', [AdminAdminController::class, 'index'])->name('admin.admins.index');
@@ -46,6 +48,8 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::post('/admin/admins/store', [AdminAdminController::class, 'store'])->name('admin.admins.store');
 
     Route::get('/admin/ride-histories', [AdminRideHistoryController::class, 'index'])->name('admin.ride-histories.index');
+    Route::get('/admin/ride-histories/{id}', [AdminRideHistoryController::class, 'view'])->name('admin.ride-histories.view');
+
     Route::get('/admin/reports', [AdminReportController::class, 'index'])->name('admin.reports.index');
     Route::get('/admin/settings', [AdminSettingController::class, 'index'])->name('admin.settings.index');
     Route::get('/admin/change-password', [AdminAccountController::class, 'changePassword'])->name('admin.change-password');

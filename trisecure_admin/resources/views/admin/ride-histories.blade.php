@@ -34,17 +34,19 @@
                                         <th>Actions</th>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Passenger Aaron</td>
-                                            <td>Driver Leo</td>
-                                            <td>October 20, 2023</td>
-                                            <td>
-                                                <div class="d-flex">
-                                                    <div class="action-button"><a href="document-tracks-view.html" title="View"><i class="fa-solid fa-eye"></i></a></div>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                        @foreach ($histories as $history)
+                                            <tr>
+                                                <td>{{ $history->id }}</td>
+                                                <td>{{ $history->passenger->first_name }} {{ $history->passenger->last_name }}</td>
+                                                <td>{{ $history->driver->first_name }} {{ $history->driver->last_name }}</td>
+                                                <td>{{ \Carbon\Carbon::parse($history->created_at)->format('m/d/Y') }}</td>
+                                                <td>
+                                                    <div class="d-flex">
+                                                        <div class="action-button"><a href="{{ route('admin.ride-histories.view', $history->id) }}" title="View"><i class="fa-solid fa-eye"></i></a></div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>

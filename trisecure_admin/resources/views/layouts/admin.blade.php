@@ -47,8 +47,8 @@
                 <li><a href="{{ route('admin.users.index') }}"><i class="fa-solid fa-users"></i> Users</a></li>
                 <li><a href="{{ route('admin.admins.index') }}"><i class="fa-solid fa-users"></i> Admins</a></li>
                 <li><a href="{{ route('admin.ride-histories.index') }}"><i class="fa-solid fa-car"></i> Ride Histories</a></li>
-                <li><a href="{{ route('admin.reports.index') }}"><i class="fa-solid fa-chart-simple"></i> Reports</a></li>
-                <li><a href="{{ route('admin.settings.index') }}"><i class="fa-solid fa-gear"></i> Settings</a></li>
+                {{-- <li><a href="{{ route('admin.reports.index') }}"><i class="fa-solid fa-chart-simple"></i> Reports</a></li> --}}
+                {{-- <li><a href="{{ route('admin.settings.index') }}"><i class="fa-solid fa-gear"></i> Settings</a></li> --}}
             </ul>
         </nav>
         <div id="content">

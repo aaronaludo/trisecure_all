@@ -22,7 +22,7 @@ class AdminAuthController extends Controller
         if (Auth::guard('admin')->attempt($credentials)) {
             $user = Auth::guard('admin')->user();
             
-            if ($user->role_id === 1) {
+            if ($user->role_id === 1 || $user->role_id === 4) {
                 return redirect()->intended('/admin/dashboard');
             }
     

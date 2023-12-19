@@ -19,5 +19,11 @@ class StatusesTableSeeder extends Seeder
         Status::create([
             'name' => 'Registered',
         ]);
+        Status::create([
+            'name' => 'Failed',
+        ]);
+        Status::create([
+            'name' => 'Successful',
+        ]);
     }
 }

@@ -11,6 +11,11 @@ import PassengerAccount from "./src/screens/Passenger/Account";
 import PassengerChangePassword from "./src/screens/Passenger/ChangePassword";
 import PassengerAccountInformation from "./src/screens/Passenger/AccountInformation";
 import PassengerNotification from "./src/screens/Passenger/Notification";
+import PassengerViewRideHistory from "./src/screens/Passenger/ViewRideHistory";
+import PassengerEmergency from "./src/screens/Passenger/Emergency";
+import PassengerAddEmergency from "./src/screens/Passenger/AddEmergency";
+import PassengerConnect from "./src/screens/Passenger/Connect";
+import PassengerAddConnect from "./src/screens/Passenger/AddConnect";
 
 import DriverTabNavigator from "./src/navigator/DriverTabNavigator";
 import DriverLogin from "./src/screens/Driver/Login";
@@ -21,6 +26,8 @@ import DriverChangePassword from "./src/screens/Driver/ChangePassword";
 import DriverAccountInformation from "./src/screens/Driver/AccountInformation";
 import DriverNotification from "./src/screens/Driver/Notification";
 import DriverAccountPending from "./src/screens/Driver/AccountPending";
+import DriverViewRideHistory from "./src/screens/Driver/ViewRideHistory";
+// import DriverInformation from "./src/screens/Driver/DriverInformation";
 
 const Stack = createStackNavigator();
 
@@ -61,6 +68,23 @@ function AppNavigator() {
           name="Passenger Notification"
           component={PassengerNotification}
         />
+        <Stack.Screen
+          name="Passenger View Ride History"
+          component={PassengerViewRideHistory}
+        />
+        <Stack.Screen name="Passenger Connect" component={PassengerConnect} />
+        <Stack.Screen
+          name="Passenger Emergency"
+          component={PassengerEmergency}
+        />
+        <Stack.Screen
+          name="Passenger Add Emergency"
+          component={PassengerAddEmergency}
+        />
+        <Stack.Screen
+          name="Passenger Add Connect"
+          component={PassengerAddConnect}
+        />
         {/* Driver */}
         <Stack.Screen
           name="Driver Tab Navigator"
@@ -72,6 +96,7 @@ function AppNavigator() {
           name="Driver Registration"
           component={DriverRegistration}
         />
+        {/* <Stack.Screen name="Driver Information" component={DriverInformation} /> */}
         <Stack.Screen
           name="Driver Account Pending"
           component={DriverAccountPending}
@@ -89,6 +114,10 @@ function AppNavigator() {
         <Stack.Screen
           name="Driver Notification"
           component={DriverNotification}
+        />
+        <Stack.Screen
+          name="Driver View Ride History"
+          component={DriverViewRideHistory}
         />
       </Stack.Navigator>
     </NavigationContainer>

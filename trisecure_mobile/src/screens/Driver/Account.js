@@ -39,7 +39,7 @@ export default function Account({ navigation }) {
       const token = await AsyncStorage.getItem("driverToken");
       if (token) {
         const response = await axios.get(
-          "http://192.168.1.7:8000/api/drivers/logout",
+          "http://192.168.1.2:8000/api/drivers/logout",
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -49,6 +49,7 @@ export default function Account({ navigation }) {
         if (response.data.message === "Successfully logged out") {
           await AsyncStorage.removeItem("driverToken");
           await AsyncStorage.removeItem("driverData");
+          await AsyncStorage.removeItem("driverInformation");
           navigation.navigate("Driver Login");
         } else {
           console.error("Logout failed:", response.data.message);
@@ -64,10 +65,10 @@ export default function Account({ navigation }) {
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
-        <Image
+        {/* <Image
           source={require("../../../assets/images/profile.jpg")}
           style={styles.image}
-        />
+        /> */}
         <Text
           style={styles.title}
         >{`${userData.first_name} ${userData.last_name}`}</Text>

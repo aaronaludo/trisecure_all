@@ -6,7 +6,9 @@
         <div class="row">
             <div class="col-lg-12 d-flex justify-content-between">
                 <div><h2 class="title">Admins</h1></div>
-                <div class="d-flex align-items-center"><a class="btn btn-primary" href="{{ route('admin.admins.add') }}"><i class="fa-solid fa-plus"></i>&nbsp;&nbsp;&nbsp;Add Admin</a></div>
+                @if (auth()->guard('admin')->user()->role_id === 4)
+                    <div class="d-flex align-items-center"><a class="btn btn-primary" href="{{ route('admin.admins.add') }}"><i class="fa-solid fa-plus"></i>&nbsp;&nbsp;&nbsp;Add Admin</a></div>
+                @endif
             </div>
             <div class="col-lg-12 mb-20">
                 <div class="box">

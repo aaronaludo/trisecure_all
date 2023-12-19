@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use App\Models\DriverInformation;
 
 class MobileDriverAuthController extends Controller
 {
@@ -32,6 +33,7 @@ class MobileDriverAuthController extends Controller
             'phone_number' => 'required|string',
             'email' => 'required|email|unique:users',
             'password' => ['required', 'confirmed'],
+            'license' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         $user = new User();
@@ -45,8 +47,46 @@ class MobileDriverAuthController extends Controller
         $user->password = Hash::make($request->password);
         $user->save();
 
+        $information = new DriverInformation();
+        $information->driver_id = $user->id;
+        $information->status_id = 1;
+        $information->qr_code = $user->id."_".$user->email;
+
+        if ($request->hasFile('license')) {
+            $license = $request->file('license');
+            $licenseName = time() . '.' . $license->getClientOriginalExtension();
+            $path = $license->storeAs('uploads', $licenseName, 'public');
+            $information->license = $path;
+        }
+
+        $information->save();
+
         return response()->json(['message' => 'Successfully registered']);
     }
+
+    // public function driverInformation(Request $request, $email){
+    //     $user = User::where('email', $email)->first();
+
+    //     $request->validate([
+    //         'license' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+    //     ]);
+
+    //     $information = new DriverInformation();
+    //     $information->driver_id = $user->id;
+    //     $information->status_id = 1;
+    //     $information->qr_code = $user->id."_".$user->email;
+
+    //     if ($request->hasFile('license')) {
+    //         $license = $request->file('license');
+    //         $licenseName = time() . '.' . $license->getClientOriginalExtension();
+    //         $path = $license->storeAs('uploads', $licenseName, 'public');
+    //         $information->license = $path;
+    //     }
+
+    //     $information->save();
+
+    //     return response()->json(['user' => $user]);
+    // }
 
     public function login(Request $request){
         $credentials = $request->only('email', 'password');
@@ -59,15 +99,16 @@ class MobileDriverAuthController extends Controller
 
                 $response = [
                     'token' => $token,
-                    'user' => $user
+                    'user' => $user,
+                    'driver_information' => $user->driver_information,
                 ];
 
                 return response()->json(['response' => $response]);
-            }else if($user->status_id === 1){
+            }else if($user->status_id === 1 && $user->role_id === 2){
                 return response()->json(['message' => 'Your account is pending']);
             }
 
-            $request->user()->tokens()->delete();
+            $request->user()->tokens()->where('id', $request->user()->currentAccessToken()->id)->delete();
             return response()->json(['message' => 'Drivers account only'], 401);
         }
 
@@ -78,7 +119,7 @@ class MobileDriverAuthController extends Controller
         $user = Auth::user();
 
         if ($user->role_id === 2) {
-            $request->user()->tokens()->delete();
+            $request->user()->tokens()->where('id', $request->user()->currentAccessToken()->id)->delete();
             return response()->json(['message' => 'Successfully logged out']);
         }
 

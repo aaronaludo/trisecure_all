@@ -12,12 +12,16 @@
                 <div class="box">
                     <div class="row">
                         <div class="col-lg-10">
-                            <div class="input-group mb-3 mb-lg-0">
-                                <span class="input-group-text"><i class="fa-solid fa-magnifying-glass"></i></span>
-                                <input type="text" class="form-control" placeholder="Search by Name" />
+                        <form action="{{ route('admin.users.search') }}" method="GET">
+                                <div class="input-group mb-3 mb-lg-0">
+                                    <span class="input-group-text"><i class="fa-solid fa-magnifying-glass"></i></span>
+                                    <input type="text" class="form-control" name="search" placeholder="Search by email" />
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-lg-2"><button class="btn btn-primary w-100">Search</button></div>
+                            <div class="col-lg-2">
+                                <button type="submit" class="btn btn-primary w-100">Search</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -30,6 +34,7 @@
                                     <thead class="table-light">
                                         <th>ID</th>
                                         <th>Name</th>
+                                        <th>Email</th>
                                         <th>Type</th>
                                         <th>Contact Number</th>
                                         <th>Status</th>
@@ -40,6 +45,7 @@
                                             <tr>
                                                 <td>{{ $user->id }}</td>
                                                 <td>{{ $user->first_name }} {{ $user->last_name }}</td>
+                                                <td>{{ $user->email }}</td>
                                                 <td>{{ $user->role->name }}</td>
                                                 <td>{{ $user->phone_number }}</td>
                                                 <td>{{ $user->status->name }}</td>

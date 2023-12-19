@@ -14,6 +14,21 @@
                     <p class="color-kabarkadogs">Phone number: <span class="fw-bold ms-2">{{ $user->phone_number }}</span></p>
                     <p class="color-kabarkadogs">Email: <span class="fw-bold ms-2">{{ $user->email }}</span></p>
                     <p class="color-kabarkadogs">Role: <span class="fw-bold ms-2">{{ $user->role->name }}</span></p>
+                    <p class="color-kabarkadogs">Status: <span class="fw-bold ms-2">{{ $user->status->name }}</span></p>
+                    @if ($user->role->id === 2)
+                        <img src="{{ asset('storage/' . $user->driver_information->license) }}" alt="license" height="300" class="mb-5 rounded">
+                        <form action="{{ route('admin.users.verify', $user->id) }}" method="POST">
+                            @csrf
+                            <div>
+                                <button class="btn btn-success" type="submit" name="status_id" value="2" {{ $user->status_id == 2 ? 'disabled' : ''}}>
+                                    Registered
+                                </button>
+                                <button class="btn btn-danger" type="submit" name="status_id" value="3" {{ $user->status_id == 3 ? 'disabled' : ''}}>
+                                    Failed
+                                </button>
+                            </div>
+                        </form>
+                    @endif
                 </div>
             </div>                    
         </div>

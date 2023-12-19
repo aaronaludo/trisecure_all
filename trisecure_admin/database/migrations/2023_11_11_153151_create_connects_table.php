@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('connects', function (Blueprint $table) {
             $table->id();
-            $table->integer('first_passenger_id');
-            $table->integer('second_passenger_id');
+            $table->integer('sender_id');
+            $table->integer('receiver_id');
+            $table->integer('status_id');
             $table->timestamps();
         });
     }

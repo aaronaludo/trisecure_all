@@ -1,7 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, TextInput, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  Platform,
+  Image,
+  ScrollView,
+} from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { styles } from "../../styles/Form";
+import * as ImagePicker from "expo-image-picker";
 import axios from "axios";
 
 const Registration = ({ navigation }) => {
@@ -13,8 +22,29 @@ const Registration = ({ navigation }) => {
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
   const [error, setError] = useState("");
+  const [imageUri, setImageUri] = useState(null);
+
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+    setImageUri(result.assets[0].uri);
+  };
 
   useEffect(() => {
+    (async () => {
+      if (Platform.OS !== "web") {
+        const { status } =
+          await ImagePicker.requestMediaLibraryPermissionsAsync();
+        if (status !== "granted") {
+          alert("Sorry, we need camera roll permissions to make this work!");
+        }
+      }
+    })();
+
     checkToken();
   }, []);
 
@@ -28,20 +58,36 @@ const Registration = ({ navigation }) => {
   const handleRegister = async () => {
     setError("");
     try {
+      const formData = new FormData();
+      formData.append("first_name", firstName);
+      formData.append("last_name", lastName);
+      formData.append("address", address);
+      formData.append("phone_number", phoneNumber);
+      formData.append("email", email);
+      formData.append("password", password);
+      formData.append("password_confirmation", passwordConfirmation);
+
+      if (imageUri) {
+        const uriParts = imageUri.split(".");
+        const fileType = uriParts[uriParts.length - 1];
+
+        formData.append("license", {
+          uri: imageUri,
+          name: `photo.${fileType}`,
+          type: `image/${fileType}`,
+        });
+      }
+
       const response = await axios.post(
-        "http://192.168.1.7:8000/api/drivers/register",
+        "http://192.168.1.2:8000/api/drivers/register",
+        formData,
         {
-          first_name: firstName,
-          last_name: lastName,
-          address: address,
-          phone_number: phoneNumber,
-          email: email,
-          password: password,
-          password_confirmation: passwordConfirmation,
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
         }
       );
 
-      console.log(response.data);
       navigation.navigate("Driver Login");
     } catch (error) {
       setError("Invalid credentials");
@@ -49,12 +95,24 @@ const Registration = ({ navigation }) => {
   };
 
   return (
-    <>
+    <ScrollView>
       <View style={[styles.container, { flex: 1 }]}>
         <Text style={styles.title}>Hello!</Text>
         <Text style={styles.description}>Create a new account.</Text>
         {error !== "" && (
           <Text style={[styles.description, { color: "red" }]}>{error}</Text>
+        )}
+        <TouchableOpacity
+          style={[styles.inputButton, { marginBottom: 10 }]}
+          onPress={pickImage}
+        >
+          <Text style={styles.inputButtonText}>Add License</Text>
+        </TouchableOpacity>
+        {imageUri && (
+          <Image
+            source={{ uri: imageUri }}
+            style={{ width: 200, height: 200, marginBottom: 10 }}
+          />
         )}
         <TextInput
           style={styles.input}
@@ -113,7 +171,7 @@ const Registration = ({ navigation }) => {
           </Text>
         </Text>
       </View>
-    </>
+    </ScrollView>
   );
 };
 

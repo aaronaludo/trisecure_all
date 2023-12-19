@@ -39,11 +39,11 @@ class MobileAuthController extends Controller
                 ];
 
                 return response()->json(['response' => $response]);
-            }else{
+            }else if($user->role_id === 3 && $user->status_id === 1){
                 return response()->json(['message' => 'Your account is pending']);
             }
 
-            $request->user()->tokens()->delete();
+            $request->user()->tokens()->where('id', $request->user()->currentAccessToken()->id)->delete();
             return response()->json(['message' => 'Passengers account only'], 401);
         }
 
@@ -85,7 +85,7 @@ class MobileAuthController extends Controller
         $user = Auth::user();
 
         if ($user->role_id === 3) {
-            $request->user()->tokens()->delete();
+            $request->user()->tokens()->where('id', $request->user()->currentAccessToken()->id)->delete();
             return response()->json(['message' => 'Successfully logged out']);
         }
 

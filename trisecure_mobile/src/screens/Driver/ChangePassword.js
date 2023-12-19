@@ -16,7 +16,7 @@ const ChangePassword = ({ navigation }) => {
       const token = await AsyncStorage.getItem("driverToken");
 
       const response = await axios.post(
-        "http://192.168.1.7:8000/api/drivers/change-password",
+        "http://192.168.1.2:8000/api/drivers/change-password",
         {
           old_password: oldPassword,
           new_password: newPassword,

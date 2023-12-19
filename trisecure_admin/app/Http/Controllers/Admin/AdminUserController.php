@@ -19,4 +19,20 @@ class AdminUserController extends Controller
 
         return view('admin.users-view', compact('user'));
     }
+
+    public function search(Request $request){
+        $search = $request->search;
+        $users = User::whereIn('role_id', [2, 3])->where('email', 'like', '%' . $search . '%')->get();
+
+        return view('admin.users', compact('users'));
+    }
+
+    public function verify(Request $request, $id){
+        $user = User::find($id);
+        
+        $user->status_id = $request->status_id;
+        $user->save();
+
+        return view('admin.users-view', compact('user'));
+    }
 }
