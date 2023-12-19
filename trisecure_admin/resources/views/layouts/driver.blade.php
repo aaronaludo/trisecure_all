@@ -25,12 +25,17 @@
                 <ul class="navbar-nav">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="{{ asset('assets/images/profile-45x45.png') }}" alt="User" title="User" class="round" />Driver
+                            <img src="{{ asset('assets/images/profile-45x45.png') }}" alt="User" title="User" class="round" /> {{ auth()->guard('driver')->user()->first_name }}
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
                             <li><a class="dropdown-item" href="{{ route('driver.edit-profile') }}">Edit Profile</a></li>
                             <li><a class="dropdown-item" href="{{ route('driver.change-password') }}">Change Password</a></li>
-                            <li><a class="dropdown-item" href="{{ route('driver.login') }}">Logout</a></li>
+                            <li>
+                                <form method="POST" action="{{ route('driver.logout') }}">
+                                    @csrf
+                                    <button type="submit" class="dropdown-item">Logout</button>
+                                </form>
+                            </li>
                         </ul>
                     </li>
                 </ul>
@@ -40,7 +45,7 @@
             <ul id="menu">
                 <li><a href="{{ route('driver.dashboard.index') }}"><i class="fa-solid fa-gauge"></i> Dashboard</a></li>
                 <li><a href="{{ route('driver.ride-histories.index') }}"><i class="fa-solid fa-car"></i> Ride Histories</a></li>
-                <li><a href="{{ route('driver.settings.index') }}"><i class="fa-solid fa-gear"></i> Settings</a></li>
+                {{-- <li><a href="{{ route('driver.settings.index') }}"><i class="fa-solid fa-gear"></i> Settings</a></li> --}}
             </ul>
         </nav>
         <div id="content">

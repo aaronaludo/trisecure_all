@@ -1,4 +1,4 @@
-@extends('layouts.driver')
+@extends('layouts.passenger')
 @section('title', 'Edit Profile')
 
 @section('content')
@@ -16,36 +16,36 @@
                     @endif
                     <div class="row">
                         <div class="col-lg-12">
-                            <form action="{{ route('driver.account.update-profile') }}" method="post">
+                            <form action="{{ route('passenger.account.update-profile') }}" method="post">
                                 @csrf
                                 <div class="mb-3 row">
                                     <label for="first_name" class="col-sm-12 col-lg-2 col-form-label">First name: <span class="required">*</span></label>
                                     <div class="col-lg-10 col-sm-12 d-flex align-items-center">
-                                        <input type="text" class="form-control" id="first_name" name="first_name" value="{{ auth()->guard('driver')->user()->first_name }}"/>
+                                        <input type="text" class="form-control" id="first_name" name="first_name" value="{{ auth()->guard('passenger')->user()->first_name }}"/>
                                     </div>
                                 </div>
                                 <div class="mb-3 row">
                                     <label for="last_name" class="col-sm-12 col-lg-2 col-form-label">Last name: <span class="required">*</span></label>
                                     <div class="col-lg-10 col-sm-12 d-flex align-items-center">
-                                        <input type="text" class="form-control" id="last_name" name="last_name" value="{{ auth()->guard('driver')->user()->last_name }}"/>
+                                        <input type="text" class="form-control" id="last_name" name="last_name" value="{{ auth()->guard('passenger')->user()->last_name }}"/>
                                     </div>
                                 </div>
                                 <div class="mb-3 row">
                                     <label for="address" class="col-sm-12 col-lg-2 col-form-label">Address: <span class="required">*</span></label>
                                     <div class="col-lg-10 col-sm-12 d-flex align-items-center">
-                                        <input type="text" class="form-control" id="address" name="address" value="{{ auth()->guard('driver')->user()->address }}"/>
+                                        <input type="text" class="form-control" id="address" name="address" value="{{ auth()->guard('passenger')->user()->address }}"/>
                                     </div>
                                 </div>
                                 <div class="mb-3 row">
                                     <label for="phone_number" class="col-sm-12 col-lg-2 col-form-label">Phone number: <span class="required">*</span></label>
                                     <div class="col-lg-10 col-sm-12 d-flex align-items-center">
-                                        <input type="text" class="form-control" id="phone_number" name="phone_number" value="{{ auth()->guard('driver')->user()->phone_number }}"/>
+                                        <input type="text" class="form-control" id="phone_number" name="phone_number" value="{{ auth()->guard('passenger')->user()->phone_number }}"/>
                                     </div>
                                 </div>
                                 <div class="mb-3 row">
                                     <label for="email" class="col-sm-12 col-lg-2 col-form-label">Email: <span class="required">*</span></label>
                                     <div class="col-lg-10 col-sm-12 d-flex align-items-center">
-                                        <input type="email" class="form-control" id="email" name="email" value="{{ auth()->guard('driver')->user()->email }}"/>
+                                        <input type="email" class="form-control" id="email" name="email" value="{{ auth()->guard('passenger')->user()->email }}"/>
                                     </div>
                                 </div>
                                 <div class="d-flex justify-content-center mt-5 mb-4">

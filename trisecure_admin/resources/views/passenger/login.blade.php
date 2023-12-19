@@ -37,11 +37,11 @@
             <div class="col-lg-12 d-flex justify-content-center">
               <div class="col-lg-5 col-sm-10 col-12 col-md-8 mt-5">
                 <div id="login-container">
-                  <h2>Driver Login</h2>
+                  <h2>Passenger Login</h2>
                   @if(session('error'))
                   <div class="alert alert-danger">{{ session('error') }}</div>
                   @endif
-                  <form action="{{ route('driver.process.login') }}" method="post">
+                  <form action="{{ route('passenger.process.login') }}" method="post">
                     @csrf
                     <div class="input-group mb-3 mt-4">
                       <span class="input-group-text"
@@ -71,7 +71,7 @@
                     @error('password') <!-- Display validation error for password -->
                     <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
-                    <div class="mb-3"><a href="{{ route('driver.register') }}">Register</a></div>
+                    <div class="mb-3"><a href="{{ route('passenger.register') }}">Register</a></div>
                     <button type="submit" class="btn btn-primary w-100">
                       Login
                     </button>

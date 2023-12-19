@@ -1,4 +1,4 @@
-@extends('layouts.driver')
+@extends('layouts.passenger')
 @section('title', 'Change Password')
 
 @section('content')
@@ -32,7 +32,7 @@
                     @endif
                     <div class="row">
                         <div class="col-lg-12">
-                            <form action="{{ route('driver.account.update_change_password') }}" method="POST">
+                            <form action="{{ route('passenger.account.update_change_password') }}" method="POST">
                                 @csrf
                                 <div class="mb-3 row">
                                     <label for="old_password" class="col-sm-12 col-lg-2 col-form-label">Old Password: <span class="required">*</span></label>

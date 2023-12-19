@@ -16,4 +16,8 @@ class RideHistory extends Model
     public function driver(){
         return $this->belongsTo(User::class, 'driver_id');
     }
+
+    public function status(){
+        return $this->belongsTo(Status::class);
+    }
 }

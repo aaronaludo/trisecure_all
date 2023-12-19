@@ -33,6 +33,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::get('/qr-code/{qr_code}', [MobileQrCodeController::class, 'index'])->name('passengers.qr-code.index');
 
         Route::get('/ride-histories', [MobileRideHistoryController::class, 'index'])->name('passengers.ride-histories.index');
+        Route::post('/ride-histories/status', [MobileRideHistoryController::class, 'status'])->name('passengers.ride-histories.status');
         Route::get('/ride-histories/{id}', [MobileRideHistoryController::class, 'view'])->name('passengers.ride-histories.view');
 
         Route::get('/emergencies', [MobileEmergencyController::class, 'index'])->name('passengers.emergencies.index');

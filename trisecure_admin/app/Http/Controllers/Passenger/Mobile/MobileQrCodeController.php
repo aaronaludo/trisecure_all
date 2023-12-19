@@ -19,6 +19,7 @@ class MobileQrCodeController extends Controller
         $history = new RideHistory();
         $history->passenger_id = auth()->user()->id;
         $history->driver_id = $information->driver_id;
+        $history->status_id = 1;
         $history->save();
         
         return response()->json(['user' => $information->user]);

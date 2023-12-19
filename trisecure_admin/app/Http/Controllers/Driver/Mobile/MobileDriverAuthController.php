@@ -64,30 +64,6 @@ class MobileDriverAuthController extends Controller
         return response()->json(['message' => 'Successfully registered']);
     }
 
-    // public function driverInformation(Request $request, $email){
-    //     $user = User::where('email', $email)->first();
-
-    //     $request->validate([
-    //         'license' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
-    //     ]);
-
-    //     $information = new DriverInformation();
-    //     $information->driver_id = $user->id;
-    //     $information->status_id = 1;
-    //     $information->qr_code = $user->id."_".$user->email;
-
-    //     if ($request->hasFile('license')) {
-    //         $license = $request->file('license');
-    //         $licenseName = time() . '.' . $license->getClientOriginalExtension();
-    //         $path = $license->storeAs('uploads', $licenseName, 'public');
-    //         $information->license = $path;
-    //     }
-
-    //     $information->save();
-
-    //     return response()->json(['user' => $user]);
-    // }
-
     public function login(Request $request){
         $credentials = $request->only('email', 'password');
 

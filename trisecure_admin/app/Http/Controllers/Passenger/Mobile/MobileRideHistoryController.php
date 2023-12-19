@@ -18,6 +18,7 @@ class MobileRideHistoryController extends Controller
                 'id' => $history->id,
                 'passenger' => $history->passenger,
                 'driver' => $history->driver,
+                'status' => $history->status,
                 'created_at' => $history->created_at,
                 'updated_at' => $history->updated_at
             ];    
@@ -33,10 +34,19 @@ class MobileRideHistoryController extends Controller
             'id' => $history->id,
             'passenger' => $history->passenger,
             'driver' => $history->driver,
+            'status' => $history->status,
             'created_at' => $history->created_at,
             'updated_at' => $history->updated_at
         ];
 
         return response()->json(['history' => $response]);
+    }
+
+    public function status(Request $request){
+        $history = RideHistory::where('passenger_id', auth()->user()->id)->where('id', $request->id)->first();
+        $history->status_id = 4;
+        $history->save();
+        
+        return response()->json(['message' => 'Status changed successfully '.$history->id.' '.$history->status_id]);
     }
 }

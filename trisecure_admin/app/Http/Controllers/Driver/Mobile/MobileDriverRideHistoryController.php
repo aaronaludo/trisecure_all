@@ -18,6 +18,7 @@ class MobileDriverRideHistoryController extends Controller
                 'id' => $history->id,
                 'passenger' => $history->passenger,
                 'driver' => $history->driver,
+                'status' => $history->status,
                 'created_at' => $history->created_at,
                 'updated_at' => $history->updated_at
             ];    
@@ -33,6 +34,7 @@ class MobileDriverRideHistoryController extends Controller
             'id' => $history->id,
             'passenger' => $history->passenger,
             'driver' => $history->driver,
+            'status' => $history->status,
             'created_at' => $history->created_at,
             'updated_at' => $history->updated_at
         ];

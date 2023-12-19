@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->integer('passenger_id');
             $table->integer('driver_id');
+            $table->integer('status_id');
             $table->timestamps();
         });
     }

@@ -25,12 +25,17 @@
                 <ul class="navbar-nav">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="{{ asset('assets/images/profile-45x45.png') }}" alt="User" title="User" class="round" />Passenger
+                            <img src="{{ asset('assets/images/profile-45x45.png') }}" alt="User" title="User" class="round" />  {{ auth()->guard('passenger')->user()->first_name }}
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
-                            <li><a class="dropdown-item" href="#">Edit Profile</a></li>
-                            <li><a class="dropdown-item" href="#">Change Password</a></li>
-                            <li><a class="dropdown-item" href="#">Logout</a></li>
+                            <li><a class="dropdown-item" href="{{ route('passenger.edit-profile') }}">Edit Profile</a></li>
+                            <li><a class="dropdown-item" href="{{ route('passenger.change-password') }}">Change Password</a></li>
+                            <li>
+                                <form method="POST" action="{{ route('passenger.logout') }}">
+                                    @csrf
+                                    <button type="submit" class="dropdown-item">Logout</button>
+                                </form>
+                            </li>
                         </ul>
                     </li>
                 </ul>
@@ -38,10 +43,9 @@
         </header>
         <nav id="column-left">
             <ul id="menu">
-                <li><a href="#" class="active"><i class="fa-solid fa-gauge"></i> Dashboard</a></li>
-                <li><a href="#"><i class="fa-solid fa-car"></i> Ride Histories</a></li>
-                <li><a href="#"><i class="fa-solid fa-users"></i> Connections</a></li>
-                <li><a href="#"><i class="fa-solid fa-gear"></i> Settings</a></li>
+                <li><a href="{{ route('passenger.dashboard.index') }}"><i class="fa-solid fa-gauge"></i> Dashboard</a></li>
+                <li><a href="{{ route('passenger.ride-histories.index') }}"><i class="fa-solid fa-car"></i> Ride Histories</a></li>
+                <li><a href="{{ route('passenger.connects.index') }}"><i class="fa-solid fa-users"></i> Connects</a></li>
             </ul>
         </nav>
         <div id="content">

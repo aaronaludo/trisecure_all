@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\User;
-use PDO;
 
 class AdminAdminController extends Controller
 {
@@ -32,7 +31,7 @@ class AdminAdminController extends Controller
             'last_name' => 'required',
             'address' => 'required',
             'phone_number' => 'required',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:users',
             'password' => ['required', 'confirmed'],
         ]);
 
