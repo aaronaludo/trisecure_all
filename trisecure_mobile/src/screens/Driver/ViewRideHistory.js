@@ -3,6 +3,7 @@ import { styles } from "../../styles/Box";
 import { View, Text } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
+import moment from "moment";
 
 const ViewRideHistory = ({ route }) => {
   const { history_id } = route.params;
@@ -12,6 +13,7 @@ const ViewRideHistory = ({ route }) => {
       last_name: "",
       phone_number: "",
       email: "",
+      address: "",
     },
   });
 
@@ -53,9 +55,18 @@ const ViewRideHistory = ({ route }) => {
             Passenger email: {history.passenger.email}
           </Text>
           <Text style={styles.title}>
+            Passenger address: {history.passenger.address}
+          </Text>
+          <Text style={styles.title}>
             Ride date:{" "}
             {new Date(history.created_at).toLocaleDateString("en-US")}
           </Text>
+          {history.status.id === 4 && (
+            <Text style={styles.title}>
+              Dropoff Date:
+              {moment(history.updated_at).format("MM/DD/YYYY hh:mm A")}
+            </Text>
+          )}
         </View>
       )}
     </View>

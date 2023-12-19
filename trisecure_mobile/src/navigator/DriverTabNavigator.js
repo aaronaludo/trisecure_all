@@ -49,7 +49,7 @@ export default function App({ navigation }) {
           ),
         }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name="Notification"
         component={Notification}
         options={{
@@ -61,7 +61,7 @@ export default function App({ navigation }) {
             />
           ),
         }}
-      />
+      /> */}
     </Tab.Navigator>
   );
 }

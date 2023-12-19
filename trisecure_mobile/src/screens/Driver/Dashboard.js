@@ -94,6 +94,7 @@ const Dashboard = ({ navigation }) => {
         <View style={styles2.headerRow}>
           <Text style={styles2.headerCell}>ID</Text>
           <Text style={styles2.headerCell}>Passenger Name</Text>
+          <Text style={styles2.headerCell}>Status</Text>
           <Text style={styles2.headerCell}>Ride Date</Text>
           <Text style={styles2.headerCell}>Actions</Text>
         </View>
@@ -103,6 +104,7 @@ const Dashboard = ({ navigation }) => {
             <Text style={styles2.cell}>
               {item.passenger.first_name} {item.passenger.last_name}
             </Text>
+            <Text style={styles2.cell}>{item.status.name}</Text>
             <Text style={styles2.cell}>
               {new Date(item.created_at).toLocaleDateString("en-US")}
             </Text>
