@@ -39,7 +39,7 @@ export default function Account({ navigation }) {
       const token = await AsyncStorage.getItem("driverToken");
       if (token) {
         const response = await axios.get(
-          "http://192.168.1.2:8000/api/drivers/logout",
+          "http://192.168.42.41:8000/api/drivers/logout",
           {
             headers: {
               Authorization: `Bearer ${token}`,

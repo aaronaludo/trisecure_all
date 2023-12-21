@@ -14,7 +14,7 @@ const AddConnect = ({ navigation }) => {
       const token = await AsyncStorage.getItem("passengerToken");
 
       const response = await axios.post(
-        "http://192.168.1.2:8000/api/passengers/connects/add",
+        "http://192.168.42.41:8000/api/passengers/connects/add",
         {
           email: email,
         },

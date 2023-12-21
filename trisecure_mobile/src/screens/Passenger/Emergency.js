@@ -24,7 +24,7 @@ const Emergency = ({ navigation, route }) => {
         const token = await AsyncStorage.getItem("passengerToken");
 
         const response = await axios.get(
-          "http://192.168.1.2:8000/api/passengers/emergencies",
+          "http://192.168.42.41:8000/api/passengers/emergencies",
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -47,7 +47,7 @@ const Emergency = ({ navigation, route }) => {
       const token = await AsyncStorage.getItem("passengerToken");
 
       const response = await axios.delete(
-        `http://192.168.1.2:8000/api/passengers/emergencies/${id}`,
+        `http://192.168.42.41:8000/api/passengers/emergencies/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

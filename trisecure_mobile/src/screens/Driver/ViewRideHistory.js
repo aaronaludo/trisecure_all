@@ -15,7 +15,11 @@ const ViewRideHistory = ({ route }) => {
       email: "",
       address: "",
     },
+    status: {
+      id: 0,
+    },
   });
+  console.log(history);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -23,7 +27,7 @@ const ViewRideHistory = ({ route }) => {
         const token = await AsyncStorage.getItem("driverToken");
 
         const response = await axios.get(
-          `http://192.168.1.2:8000/api/drivers/ride-histories/${history_id}`,
+          `http://192.168.42.41:8000/api/drivers/ride-histories/${history_id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -58,10 +62,9 @@ const ViewRideHistory = ({ route }) => {
             Passenger address: {history.passenger.address}
           </Text>
           <Text style={styles.title}>
-            Ride date:{" "}
-            {new Date(history.created_at).toLocaleDateString("en-US")}
+            Ride date: {moment(history.created_at).format("MM/DD/YYYY hh:mm A")}
           </Text>
-          {history.status.id === 4 && (
+          {history.status.id == 4 && (
             <Text style={styles.title}>
               Dropoff Date:
               {moment(history.updated_at).format("MM/DD/YYYY hh:mm A")}

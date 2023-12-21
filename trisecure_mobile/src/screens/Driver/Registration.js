@@ -79,7 +79,7 @@ const Registration = ({ navigation }) => {
       }
 
       const response = await axios.post(
-        "http://192.168.1.2:8000/api/drivers/register",
+        "http://192.168.42.41:8000/api/drivers/register",
         formData,
         {
           headers: {

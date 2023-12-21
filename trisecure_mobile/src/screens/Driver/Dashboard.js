@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
+import moment from "moment";
 
 const Dashboard = ({ navigation }) => {
   const [userData, setUserData] = useState({
@@ -33,7 +34,7 @@ const Dashboard = ({ navigation }) => {
         const token = await AsyncStorage.getItem("driverToken");
 
         const response = await axios.get(
-          "http://192.168.1.2:8000/api/drivers/ride-histories",
+          "http://192.168.42.41:8000/api/drivers/ride-histories",
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -106,7 +107,7 @@ const Dashboard = ({ navigation }) => {
             </Text>
             <Text style={styles2.cell}>{item.status.name}</Text>
             <Text style={styles2.cell}>
-              {new Date(item.created_at).toLocaleDateString("en-US")}
+              {moment(item.created_at).format("MM/DD/YYYY hh:mm A")}
             </Text>
             <View style={styles2.cell}>
               <TouchableOpacity

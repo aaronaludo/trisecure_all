@@ -38,7 +38,7 @@ const AccountInformation = ({ navigation }) => {
       const token = await AsyncStorage.getItem("driverToken");
 
       const response = await axios.post(
-        "http://192.168.1.2:8000/api/drivers/edit-profile",
+        "http://192.168.42.41:8000/api/drivers/edit-profile",
         {
           first_name: firstName,
           last_name: lastName,

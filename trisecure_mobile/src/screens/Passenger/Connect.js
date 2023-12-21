@@ -24,7 +24,7 @@ const Connect = ({ navigation, route }) => {
         const token = await AsyncStorage.getItem("passengerToken");
 
         const response = await axios.get(
-          "http://192.168.1.2:8000/api/passengers/connects",
+          "http://192.168.42.41:8000/api/passengers/connects",
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -47,7 +47,7 @@ const Connect = ({ navigation, route }) => {
       const token = await AsyncStorage.getItem("passengerToken");
 
       const response = await axios.delete(
-        `http://192.168.1.2:8000/api/passengers/connects/${id}`,
+        `http://192.168.42.41:8000/api/passengers/connects/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

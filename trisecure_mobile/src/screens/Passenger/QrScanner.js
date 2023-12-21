@@ -32,7 +32,7 @@ const QrScanner = ({ navigation }) => {
       const token = await AsyncStorage.getItem("passengerToken");
       if (token) {
         const response = await axios.get(
-          `http://192.168.1.2:8000/api/passengers/qr-code/${data}`,
+          `http://192.168.42.41:8000/api/passengers/qr-code/${data}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

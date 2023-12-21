@@ -42,7 +42,7 @@ export default function Account({ navigation }) {
       const token = await AsyncStorage.getItem("passengerToken");
       if (token) {
         const response = await axios.get(
-          "http://192.168.1.2:8000/api/passengers/logout",
+          "http://192.168.42.41:8000/api/passengers/logout",
           {
             headers: {
               Authorization: `Bearer ${token}`,

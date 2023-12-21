@@ -24,7 +24,7 @@ const Login = ({ navigation }) => {
     setError("");
     try {
       const response = await axios.post(
-        "http://192.168.1.2:8000/api/drivers/login",
+        "http://192.168.42.41:8000/api/drivers/login",
         {
           email,
           password,

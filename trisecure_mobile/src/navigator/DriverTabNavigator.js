@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, TouchableOpacity } from "react-native";
+import { Text, TouchableOpacity, Image } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Dashboard from "../screens/Driver/Dashboard";
 import QrCode from "../screens/Driver/QrCode";
@@ -18,6 +18,21 @@ export default function App({ navigation }) {
             style={{ marginRight: 15 }}
           >
             <Feather name="user" size={24} color="black" />
+          </TouchableOpacity>
+        ),
+        headerLeft: () => (
+          <TouchableOpacity
+            onPress={() => navigation.navigate("Driver Account")}
+            style={{ marginLeft: 15 }}
+          >
+            <Image
+              source={require("../../assets/images/logo.jpg")}
+              style={{
+                width: 30,
+                height: 30,
+                borderRadius: 30,
+              }}
+            />
           </TouchableOpacity>
         ),
         tabBarActiveTintColor: "#0d6efd",

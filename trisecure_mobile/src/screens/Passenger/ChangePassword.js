@@ -16,7 +16,7 @@ const ChangePassword = ({ navigation }) => {
       const token = await AsyncStorage.getItem("passengerToken");
 
       const response = await axios.post(
-        "http://192.168.1.2:8000/api/passengers/change-password",
+        "http://192.168.42.41:8000/api/passengers/change-password",
         {
           old_password: oldPassword,
           new_password: newPassword,
